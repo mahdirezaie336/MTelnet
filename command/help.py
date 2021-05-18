@@ -12,4 +12,4 @@ class Help(Command):
                '\n'
 
     def help(self) -> str:
-        return self.execute(None)
+        return self.execute(None, None)
