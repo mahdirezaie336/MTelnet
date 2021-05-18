@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from Invoker import Invoker
+from invoker import Invoker
 import sys
 from socket import SOCK_STREAM, AF_INET
 
