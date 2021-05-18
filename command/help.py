@@ -10,3 +10,6 @@ class Help(Command):
                'upload <File Path>\t\t\t-\tUploads a file to server.\n' + \
                'exec <command>\t\t\t\t-\tExecutes a command inside the server\n' + \
                '\n'
+
+    def help(self) -> str:
+        return self.execute(None)
