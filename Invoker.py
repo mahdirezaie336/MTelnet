@@ -1,5 +1,6 @@
 from command.Close import Close
 from command.command import Command
+from command.help import Help
 
 
 class Invoker:
@@ -8,10 +9,7 @@ class Invoker:
 
     def __init__(self):
         self._commands = {'close': Close(),
-                          'help': None}
-
-    def add_command(self, name: str, command: Command):
-        self._commands[str] = command
+                          'help': Help()}
 
     def execute(self, name: str, args) -> str:
         return self._commands[name].execute(args)
