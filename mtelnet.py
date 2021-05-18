@@ -41,9 +41,6 @@ class MTelnet:
             traceback.print_exc('Program terminated by kill signal.')
             self.socket.close()
 
-    def exec(self, args):
-        return os.system(' '.join(args))
-
 
 t = MTelnet()
 t.run(sys.argv)
