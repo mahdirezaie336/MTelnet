@@ -24,8 +24,9 @@ class MTelnet:
                 try:
                     r = self.command_factory.execute(command[0], command[1:])
                     print(r)
-                except Exception as e:
-                    print('error')
+                except CommandNotFoundException:
+                    print('Command not found. Type help to see available commands.')
+                except:
                     self.command_factory.help(command[0])
 
         except KeyboardInterrupt:
