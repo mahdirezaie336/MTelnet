@@ -5,7 +5,7 @@ from command.command import Command
 
 class Execute(Command):
 
-    def execute(self, args) -> str:
+    def execute(self, socket, args) -> str:
         return os.popen(' '.join(args)).read()
 
     def help(self) -> str:

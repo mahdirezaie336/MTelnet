@@ -3,7 +3,7 @@ from command.command import Command
 
 class Help(Command):
 
-    def execute(self, args) -> str:
+    def execute(self, socket, args) -> str:
         return '\nHello!\nThis is a program like telnet which is created by Mahdi Rezaie.\n' + \
                'Available commands are:\n\n' + \
                'help\t\t\t\t\t\t-\tPrints this message.\n' + \

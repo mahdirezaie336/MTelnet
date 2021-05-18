@@ -2,13 +2,15 @@
 
 from Invoker import Invoker
 import sys
-from socket import socket, SOCK_STREAM, AF_INET
+from socket import SOCK_STREAM, AF_INET
+
+from msocket import MSocket
 
 
 class MTelnet:
 
     def __init__(self):
-        self.socket = socket(AF_INET, SOCK_STREAM)
+        self.socket = MSocket(AF_INET, SOCK_STREAM)
         self.command_factory = Invoker()
 
     def run(self, args):

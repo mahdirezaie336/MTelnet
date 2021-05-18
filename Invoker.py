@@ -1,4 +1,4 @@
-from command.Close import Close
+from command.close import Close
 from command.command import Command
 from command.execute import Execute
 from command.help import Help
