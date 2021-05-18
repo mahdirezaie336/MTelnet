@@ -17,3 +17,12 @@ class Invoker:
 
     def execute(self, name: str, args, socket) -> str:
         return self._commands[name].execute(socket, args)
+
+    def help(self, name: str):
+        return self._commands[name].help()
+
+
+class CommandNotFoundException(Exception):
+
+    def __init__(self, *args):
+        super().__init__(*args)

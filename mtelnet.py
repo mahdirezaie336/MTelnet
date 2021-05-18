@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from invoker import Invoker
+from invoker import Invoker, CommandNotFoundException
 import sys
 from socket import SOCK_STREAM, AF_INET
 
@@ -26,6 +26,7 @@ class MTelnet:
                     print(r)
                 except Exception as e:
                     print('error')
+                    self.command_factory.help(command[0])
 
         except KeyboardInterrupt:
             print('\n\nProgram is terminating due to a keyboard interrupt.')
