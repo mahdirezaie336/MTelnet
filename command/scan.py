@@ -16,12 +16,13 @@ class Scan(Command):
     def execute(self, sock: MSocket, args: list[str]) -> str:
         """ Scans open ports of a ip address in a range. """
         for ip in Scan.ips(args[0], args[1]):
+            print('Scanning IP', ip, '...')
             try:
 
                 # will scan ports between 1 to 65,535
-                for port in range(1, 65535):
+                for port in range(2, 65535):
                     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    socket.setdefaulttimeout(1)
+                    s.settimeout(0.001)
 
                     # returns an error indicator
                     result = s.connect_ex((ip, port))
