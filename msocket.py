@@ -6,16 +6,13 @@ class MSocket(s):
 
     def __init__(self, *args):
         super().__init__(*args)
+        self._address = None
 
-    def is_closed(self) -> bool:
+    def is_connected(self) -> bool:
         try:
-            data = self.recv(16, socket.MSG_DONTWAIT | socket.MSG_PEEK)
-            if len(data) == 0:
-                return True
-        except BlockingIOError:
-            return False  # socket is open and reading from it would block
-        except ConnectionResetError:
-            return True  # socket was closed for some other reason
-        except Exception as e:
-            return False
-        return False
+            self.getpeername()
+        except OSError as e:
+            if e.errno == 107:
+                return False
+            raise e
+        return True
