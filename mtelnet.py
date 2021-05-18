@@ -2,8 +2,10 @@
 import os
 import traceback
 
+from Invoker import Invoker
 from client import Client
 from server import Server
+from command import *
 import sys
 from socket import socket, SOCK_STREAM, AF_INET
 
@@ -16,6 +18,7 @@ class MTelnet:
 
     def __init__(self):
         self.socket = socket(AF_INET, SOCK_STREAM)
+        self.command_factory = Invoker()
 
     def run(self, args):
 
