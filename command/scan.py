@@ -20,14 +20,17 @@ class Scan(Command):
             try:
 
                 # will scan ports between 1 to 65,535
-                for port in range(2, 65535):
+                for port in range(1, 1025):
                     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    s.settimeout(0.001)
+                    s.settimeout(0.1)
 
-                    # returns an error indicator
-                    result = s.connect_ex((ip, port))
-                    if result == 0:
+                    try:
+                        # returns an error indicator
+                        s.connect((ip, port))
                         print("Port {} is open".format(port))
+                    except:
+                        pass
+
                     s.close()
 
             except KeyboardInterrupt:

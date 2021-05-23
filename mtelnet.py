@@ -2,7 +2,6 @@
 
 from invoker import Invoker, CommandNotFoundException
 import sys
-from socket import SOCK_STREAM, AF_INET
 
 from msocket import MSocket
 
@@ -10,7 +9,7 @@ from msocket import MSocket
 class MTelnet:
 
     def __init__(self):
-        self.socket = MSocket(AF_INET, SOCK_STREAM)
+        self.socket = MSocket()
         self.command_factory = Invoker()
 
     def run(self, args):
