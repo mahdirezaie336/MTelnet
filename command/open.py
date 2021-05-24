@@ -9,7 +9,9 @@ class Open(Command):
             raise ValueError('Not enough arguments to open connection.')
         if socket.is_connected():
             return 'Already connected.'
-
+        address = args[0], int(args[1])
+        socket.connect(address)
+        return 'Connected'
 
     def help(self) -> str:
         pass

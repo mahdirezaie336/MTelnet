@@ -9,4 +9,4 @@ class Close(Command):
         sys.exit(0)
 
     def help(self) -> str:
-        return 'Closes the mtelnet program.\n\n'
+        return 'Closes the mtelnet program.\n'

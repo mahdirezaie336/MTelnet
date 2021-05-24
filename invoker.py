@@ -4,6 +4,7 @@ from command.execute import Execute
 from command.help import Help
 from command.scan import Scan
 from command.upload import Upload
+from command.open import Open
 
 
 class Invoker:
@@ -15,7 +16,8 @@ class Invoker:
                           'help': Help(),
                           'exec': Execute(),
                           'scan': Scan(),
-                          'upload': Upload()}
+                          'upload': Upload(),
+                          'open': Open()}
 
     def execute(self, name: str, args, socket) -> str:
         if name not in self._commands:
