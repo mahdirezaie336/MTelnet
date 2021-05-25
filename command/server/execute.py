@@ -10,4 +10,4 @@ class Execute(Command):
         return os.popen(' '.join(args)).read()
 
     def help(self) -> str:
-        return 'Executes a command into the connected node.\n\n'
+        return 'Executes a command into the connected node.\n'
