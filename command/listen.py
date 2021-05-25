@@ -3,20 +3,28 @@ from msocket import MSocket
 from threading import Thread
 from shared_resources import SharedResources
 from invoker import Invoker
+from socket import socket as s
+
+from command.server import *
 
 
 class Listen(Command):
+    __invoker = Invoker({'exec': Execute(),
+                         'help': ''})
 
-    def client_handler(self, socket):
-        invoker = Invoker({'exec': '',
-                           'help': ''})
+    def client_handler(self, socket: s):
+        while True:
+            command = socket.recv(1024).decode().split()
+            print('{}: Running command'.format(socket.getpeername()), command[0])
+            r = self.__invoker.execute(command[0], command[1:], socket)
+            socket.send(r.encode())
 
     def welcome(self, socket: MSocket):
         while True:
             print('Welcoming Socket: Waiting for clients ...')
-            s, address = socket.accept()
+            client_socket, address = socket.accept()
             print('Welcoming Socket: Client', address, 'accepted.')
-            t = Thread(name=address, target=self.client_handler, args=(s,))
+            t = Thread(name=address, target=self.client_handler, args=(client_socket,))
             t.start()
             SharedResources().get_attribute('server_threads').append(t)
 
@@ -31,6 +39,7 @@ class Listen(Command):
             address = (args[0], int(args[1]))
         socket.listen(address)
         SharedResources().add_attribute('server_threads', [])
+        Thread(name='welcome', target=self.welcome, args=(socket,)).start()
         return 'Socket is listening on port {}'.format(args[1])
 
     def help(self) -> str:
