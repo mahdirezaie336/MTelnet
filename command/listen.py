@@ -8,8 +8,8 @@ from invoker import Invoker
 class Listen(Command):
 
     def client_handler(self, socket):
-        invoker = Invoker()
-
+        invoker = Invoker({'exec': '',
+                           'help': ''})
 
     def welcome(self, socket: MSocket):
         while True:
