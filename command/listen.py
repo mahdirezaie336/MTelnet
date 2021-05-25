@@ -43,4 +43,5 @@ class Listen(Command):
         return 'Socket is listening on port {}'.format(args[1])
 
     def help(self) -> str:
-        pass
+        return 'Listens on a port for clients to connect.\n\n' \
+               'Usage: listen <port number>'
