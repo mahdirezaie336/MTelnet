@@ -1,12 +1,11 @@
-import os
-
-from command.command import Command
+from command import Send
 
 
-class Execute(Command):
+class Execute(Send):
 
     def execute(self, socket, args) -> str:
-        return os.popen(' '.join(args)).read()
+        args.insert(0, 'exec')
+        return super().execute(socket, args)
 
     def help(self) -> str:
-        return 'Executes a command into the connected node.\n\n'
+        return 'Executes a command into the connected node.\n'

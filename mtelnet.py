@@ -2,6 +2,7 @@
 
 from invoker import Invoker, CommandNotFoundException
 from command import *
+from command.execute import Execute
 import sys
 
 from msocket import MSocket
@@ -17,7 +18,8 @@ class MTelnet:
                                         'scan': Scan(),
                                         'upload': Upload(),
                                         'open': Open(),
-                                        'listen': Listen()})
+                                        'listen': Listen(),
+                                        'send': Send()})
 
     def run(self, args):
 

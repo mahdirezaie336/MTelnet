@@ -24,7 +24,6 @@ class MSocket:
         self.__listening = True
 
     def accept(self):
-
         return self.__server_socket.accept()
 
     def is_listening(self):
@@ -36,3 +35,6 @@ class MSocket:
     def close(self):
         self.__client_socket.close()
         self.__server_socket.close()
+
+    def recv(self, size=1024):
+        return self.__client_socket.recv(size)

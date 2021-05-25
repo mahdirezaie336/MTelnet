@@ -16,13 +16,14 @@ class Listen(Command):
         while True:
             try:
                 command = socket.recv(1024).decode().split()
-                print('{}: Running command'.format(socket.getpeername()), command[0])
+                if command:
+                    print('{}: Running command'.format(socket.getpeername()), ' '.join(command))
                 r = self.__invoker.execute(command[0], command[1:], socket)
                 socket.send(r.encode())
             except CommandNotFoundException:
                 socket.send('Command not found.'.encode())
             except Exception as e:
-                socket.send(str(e).encode())
+                print(e)
 
     def welcome(self, socket: MSocket):
         while True:
