@@ -8,10 +8,11 @@ class Send(Command):
         if len(args) < 1:
             raise ValueError('Not enough arguments to send message.')
 
-        if args[0] == '-e':
-            message = args[1].encode()
+        if '-e' in args:
+            args.remove('-e')
+            message = ' '.join(args).encode()
         else:
-            message = args[0].encode()
+            message = ' '.join(args).encode()
 
         socket.send(message)
         response = socket.recv(1024)

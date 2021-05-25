@@ -16,12 +16,17 @@ class Listen(Command):
         while True:
             try:
                 command = socket.recv(1024).decode().split()
-                if command:
-                    print('{}: Running command'.format(socket.getpeername()), ' '.join(command))
+                if len(command) > 0 and command[0] == 'quit':
+                    break
+                if not command:
+                    continue
+                print('{}: Running command'.format(socket.getpeername()), ' '.join(command))
                 r = self.__invoker.execute(command[0], command[1:], socket)
                 socket.send(r.encode())
             except CommandNotFoundException:
                 socket.send('Command not found.'.encode())
+            except KeyboardInterrupt:
+                break
             except Exception as e:
                 print(e)
 
