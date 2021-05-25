@@ -1,9 +1,9 @@
-from command.command import Command
+# from command.command import Command
 
 
 class Invoker:
 
-    _commands = dict[str: Command]
+    _commands = dict[str]
 
     def __init__(self, commands):
         self._commands = commands
