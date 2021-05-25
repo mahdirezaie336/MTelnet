@@ -2,7 +2,7 @@ from command.command import Command
 from msocket import MSocket
 from threading import Thread
 from shared_resources import SharedResources
-from invoker import Invoker
+from invoker import Invoker, CommandNotFoundException
 from socket import socket as s
 
 from command.server import *
@@ -14,10 +14,15 @@ class Listen(Command):
 
     def client_handler(self, socket: s):
         while True:
-            command = socket.recv(1024).decode().split()
-            print('{}: Running command'.format(socket.getpeername()), command[0])
-            r = self.__invoker.execute(command[0], command[1:], socket)
-            socket.send(r.encode())
+            try:
+                command = socket.recv(1024).decode().split()
+                print('{}: Running command'.format(socket.getpeername()), command[0])
+                r = self.__invoker.execute(command[0], command[1:], socket)
+                socket.send(r.encode())
+            except CommandNotFoundException:
+                socket.send('Command not found.'.encode())
+            except Exception as e:
+                socket.send(str(e).encode())
 
     def welcome(self, socket: MSocket):
         while True:
@@ -40,7 +45,7 @@ class Listen(Command):
         socket.listen(address)
         SharedResources().add_attribute('server_threads', [])
         Thread(name='welcome', target=self.welcome, args=(socket,)).start()
-        return 'Socket is listening on port {}'.format(args[1])
+        return 'Socket is listening on port {}'.format(address[1])
 
     def help(self) -> str:
         return 'Listens on a port for clients to connect.\n\n' \

@@ -26,15 +26,17 @@ class MTelnet:
 
         try:
             while True:
-                command = input('mtelnet> ').split()
+                input_command = input('mtelnet> ').split()
+                if len(input_command) == 0:
+                    continue
                 try:
-                    r = self.command_factory.execute(command[0], command[1:], self.socket)
+                    r = self.command_factory.execute(input_command[0], input_command[1:], self.socket)
                     print(r)
                 except CommandNotFoundException:
                     print('Command not found. Type help to see available commands.')
                 except Exception as e:
-                    print('Command <{}> usage error: {}\nHelp:'.format(command[0], str(e)))
-                    print(self.command_factory.help(command[0]))
+                    print('Command <{}> usage error: {}\nHelp:'.format(input_command[0], str(e)))
+                    print(self.command_factory.help(input_command[0]))
 
         except KeyboardInterrupt:
             print('\n\nProgram is terminating due to a keyboard interrupt.')
