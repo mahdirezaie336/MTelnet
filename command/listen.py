@@ -21,7 +21,7 @@ class Listen(Command):
 
     def welcome(self, socket: MSocket):
         while True:
-            print('Welcoming Socket: Waiting for clients ...')
+            print('Welcoming Socket: Waiting for clients ...\n')
             client_socket, address = socket.accept()
             print('Welcoming Socket: Client', address, 'accepted.')
             t = Thread(name=address, target=self.client_handler, args=(client_socket,))
@@ -44,4 +44,4 @@ class Listen(Command):
 
     def help(self) -> str:
         return 'Listens on a port for clients to connect.\n\n' \
-               'Usage: listen <port number>'
+               'Usage: listen <port number>\n'

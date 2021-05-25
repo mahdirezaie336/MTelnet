@@ -32,8 +32,8 @@ class MTelnet:
                     print(r)
                 except CommandNotFoundException:
                     print('Command not found. Type help to see available commands.')
-                except:
-                    print('Command <{}> usage error.\nHelp:'.format(command[0]))
+                except Exception as e:
+                    print('Command <{}> usage error: {}\nHelp:'.format(command[0], str(e)))
                     print(self.command_factory.help(command[0]))
 
         except KeyboardInterrupt:
