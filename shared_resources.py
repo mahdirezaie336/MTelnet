@@ -15,5 +15,5 @@ class SharedResources(metaclass=Singleton):
     def add_attribute(self, name: str, obj: object):
         self.__attrs[name] = obj
 
-    def pop_attribute(self, name: str):
-        return self.__attrs.pop(name)
+    def get_attribute(self, name: str):
+        return self.__attrs[name]
