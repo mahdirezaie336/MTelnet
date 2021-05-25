@@ -1,18 +1,12 @@
-from command import *
+from command.command import Command
 
 
 class Invoker:
 
     _commands = dict[str: Command]
 
-    def __init__(self):
-        self._commands = {'close': Close(),
-                          'help': Help(),
-                          'exec': Execute(),
-                          'scan': Scan(),
-                          'upload': Upload(),
-                          'open': Open(),
-                          'listen': Listen()}
+    def __init__(self, commands):
+        self._commands = commands
 
     def execute(self, name: str, args, socket) -> str:
         if name not in self._commands:

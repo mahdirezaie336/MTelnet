@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from invoker import Invoker, CommandNotFoundException
+from command import *
 import sys
 
 from msocket import MSocket
@@ -10,7 +11,13 @@ class MTelnet:
 
     def __init__(self):
         self.socket = MSocket()
-        self.command_factory = Invoker()
+        self.command_factory = Invoker({'close': Close(),
+                                        'help': Help(),
+                                        'exec': Execute(),
+                                        'scan': Scan(),
+                                        'upload': Upload(),
+                                        'open': Open(),
+                                        'listen': Listen()})
 
     def run(self, args):
 
