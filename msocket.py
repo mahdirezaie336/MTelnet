@@ -14,13 +14,17 @@ class MSocket:
         self.__client_socket.send(data)
 
     def connect(self, address: tuple[str, int]):
-        return self.__client_socket.connect(address)
+        r = self.__client_socket.connect(address)
+        self.__connected = True
+        return r
 
     def listen(self, address_to_bind: tuple[str, int]):
         self.__server_socket.bind(address_to_bind)
-        return self.__server_socket.listen()
+        self.__server_socket.listen()
+        self.__listening = True
 
     def accept(self):
+
         return self.__server_socket.accept()
 
     def is_listening(self):

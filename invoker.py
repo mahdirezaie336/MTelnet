@@ -1,11 +1,4 @@
-from command.close import Close
-from command.command import Command
-from command.execute import Execute
-from command.help import Help
-from command.scan import Scan
-from command.upload import Upload
-from command.open import Open
-from command.listen import Listen
+from command import *
 
 
 class Invoker:
