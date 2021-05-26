@@ -16,18 +16,19 @@ class Listen(Command):
     def client_handler(self, socket: s):
         while True:
             try:
-                command = socket.recv(1024).decode().split()
+                # TODO: Read all bytes
+                command = socket.recv(102400).decode().split(' ')
                 if len(command) > 0 and command[0] == 'quit':
                     break
                 if not command:
                     continue
-                print('{}: Running command'.format(socket.getpeername()), ' '.join(command))
+                print('{}: Running command {}'.format(socket.getpeername(), command[0]))
                 r = self.__invoker.execute(command[0], command[1:], socket)
                 if r == '':
                     r = ' '
                 socket.send(r.encode())
-            except CommandNotFoundException:
-                socket.send('Command not found.'.encode())
+            except CommandNotFoundException as e:
+                socket.send(str(e).encode())
             except KeyboardInterrupt:
                 break
             except Exception as e:
