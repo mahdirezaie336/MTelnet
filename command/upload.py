@@ -14,6 +14,6 @@ class Upload(Command):
         with open(args[0], 'rb') as file:                           # Sending file over socket
             while (buff := file.read(1024)) != b'':
                 socket.send(buff)
-            socket.send(b'')
+            socket.send(b' ')
 
         return 'done.'

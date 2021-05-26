@@ -10,7 +10,8 @@ from command.server import *
 
 class Listen(Command):
     __invoker = Invoker({'exec': Execute(),
-                         'help': ''})
+                         'help': '',
+                         'upload': ''})
 
     def client_handler(self, socket: s):
         while True:
