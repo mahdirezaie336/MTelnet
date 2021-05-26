@@ -22,6 +22,8 @@ class Listen(Command):
                     continue
                 print('{}: Running command'.format(socket.getpeername()), ' '.join(command))
                 r = self.__invoker.execute(command[0], command[1:], socket)
+                if r == '':
+                    r = ' '
                 socket.send(r.encode())
             except CommandNotFoundException:
                 socket.send('Command not found.'.encode())

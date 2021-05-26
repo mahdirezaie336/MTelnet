@@ -3,7 +3,7 @@
 
 class Invoker:
 
-    _commands = dict[str]
+    _commands = dict
 
     def __init__(self, commands):
         self._commands = commands
