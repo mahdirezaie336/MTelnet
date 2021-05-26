@@ -13,11 +13,17 @@ class Listen(Command):
                          'help': '',
                          'upload': Upload()})
 
+    @staticmethod
+    def read_all(socket: s) -> bytes:
+        all_bytes = b''
+        while (buff := socket.recv(1024)) != b'':
+            all_bytes += buff
+        return all_bytes
+
     def client_handler(self, socket: s):
         while True:
             try:
-                # TODO: Read all bytes
-                command = socket.recv(102400).decode().split(' ')
+                command = Listen.read_all(socket).decode().split(' ')
                 if len(command) > 0 and command[0] == 'quit':
                     break
                 if not command:
