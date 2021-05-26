@@ -38,3 +38,9 @@ class MSocket:
 
     def recv(self, size=1024):
         return self.__client_socket.recv(size)
+
+    def recv_all(self):
+        data = b''
+        while (d := self.__client_socket.recv(1024)) != b'':
+            data += d
+        return data
