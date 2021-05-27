@@ -19,7 +19,8 @@ class MTelnet:
                                         'upload': Upload(),
                                         'open': Open(),
                                         'listen': Listen(),
-                                        'send': Send()})
+                                        'send': Send(),
+                                        'dbadd': DBAdd()})
 
     def run(self, args):
 
@@ -41,6 +42,8 @@ class MTelnet:
                 except Exception as e:
                     print('Command <{}> usage error: {}\nHelp:'.format(input_command[0], str(e)))
                     print(self.command_factory.help(input_command[0]))
+                finally:
+                    self.command_factory.execute('dbadd', input_command, None)
 
         except KeyboardInterrupt:
             print('\n\nProgram is terminating due to a keyboard interrupt.')

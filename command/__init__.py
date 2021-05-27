@@ -8,3 +8,4 @@ from command.chat import Chat
 from command.command import Command
 from command.listen import Listen
 from command.send import Send
+from command.db_add import DBAdd
