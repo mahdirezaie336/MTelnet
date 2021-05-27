@@ -10,7 +10,8 @@ class History(Command):
         result = ''
         res = SharedResources()
         if 'db' not in res:
-            db = res.add_attribute('db', DBManager())
+            db = DBManager()
+            res.add_attribute('db', db)
         else:
             db = res.get_attribute('db')
         result += db.read_all()
