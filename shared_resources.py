@@ -17,3 +17,6 @@ class SharedResources(metaclass=Singleton):
 
     def get_attribute(self, name: str):
         return self.__attrs[name]
+
+    def __contains__(self, key):
+        return key in self.__attrs
