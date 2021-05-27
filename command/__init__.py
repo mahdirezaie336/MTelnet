@@ -9,3 +9,4 @@ from command.command import Command
 from command.listen import Listen
 from command.send import Send
 from command.db_add import DBAdd
+from command.history import History

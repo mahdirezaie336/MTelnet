@@ -20,7 +20,9 @@ class MTelnet:
                                         'open': Open(),
                                         'listen': Listen(),
                                         'send': Send(),
-                                        'dbadd': DBAdd()})
+                                        'dbadd': DBAdd(),
+                                        'history': History()
+                                        })
 
     def run(self, args):
 
