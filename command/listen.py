@@ -15,15 +15,17 @@ class Listen(Command):
 
     @staticmethod
     def read_all(socket: s) -> bytes:
-        all_bytes = b''
-        while (buff := socket.recv(1024)) != b'':
-            all_bytes += buff
+        # all_bytes = b''
+        # while (buff := socket.recv(1024*1024*1024)) != b'':
+        #    all_bytes += buff
+        all_bytes = socket.recv(1024*1024*50)
         return all_bytes
 
     def client_handler(self, socket: s):
         while True:
             try:
                 command = Listen.read_all(socket).decode().split(' ')
+                print(command)
                 if len(command) > 0 and command[0] == 'quit':
                     break
                 if not command:
@@ -34,11 +36,12 @@ class Listen(Command):
                     r = ' '
                 socket.send(r.encode())
             except CommandNotFoundException as e:
-                socket.send(str(e).encode())
+                socket.send('Command not found'.encode())
             except KeyboardInterrupt:
                 break
             except Exception as e:
                 print(e)
+                break
 
     def welcome(self, socket: MSocket):
         while True:

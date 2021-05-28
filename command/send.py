@@ -17,7 +17,7 @@ class Send(Command):
             message = ' '.join(args).encode()
 
         socket.send(message, secured)
-        response = socket.recv(1024)
+        response = socket.recv(1024, secured)
         return response.decode()
 
     def help(self) -> str:

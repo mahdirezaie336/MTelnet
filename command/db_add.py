@@ -13,7 +13,7 @@ class DBAdd(Command):
             res.add_attribute('db', db)
         else:
             db = res.get_attribute('db')
-        db.insert(' '.join(args))
+        db.insert(' '.join(args)[:256])
         return 'Command added to database history'
 
     def help(self) -> str:

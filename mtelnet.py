@@ -31,7 +31,7 @@ class MTelnet:
 
         try:
             while True:
-                input_command = input('mtelnet> ').split()
+                input_command = input('mtelnet> ').split(' ')
                 if len(input_command) == 0:
                     continue
                 try:
@@ -42,6 +42,7 @@ class MTelnet:
                 except KeyboardInterrupt as e:
                     raise e
                 except Exception as e:
+                    raise e
                     print('Command <{}> usage error: {}\nHelp:'.format(input_command[0], str(e)))
                     print(self.command_factory.help(input_command[0]))
                 finally:
@@ -50,6 +51,8 @@ class MTelnet:
         except KeyboardInterrupt:
             print('\n\nProgram is terminating due to a keyboard interrupt.')
             self.socket.close()
+        except Exception as e:
+            raise e
 
 
 t = MTelnet()
