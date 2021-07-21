@@ -11,11 +11,10 @@ class Send(Command):
         if '-e' in args:
             args.remove('-e')
             secured = True
-            message = ' '.join(args).encode()
         else:
             secured = False
-            message = ' '.join(args).encode()
 
+        message = ' '.join(args).encode()
         socket.send(message, secured)
         response = socket.recv(1024, secured)
         return response.decode()

@@ -24,7 +24,9 @@ class MSocket:
             context = ssl.create_default_context()
             hostname = self.__host_address[0]
             if not self.__secured_connected:
-                print(data.decode())
+                # print(data.decode())
+                pass
+            print(hostname)
             secured_socket = context.wrap_socket(self.__client_socket, server_hostname=hostname)
             secured_socket.send(data)
             print('sending finished')

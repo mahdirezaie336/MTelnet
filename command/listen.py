@@ -16,9 +16,6 @@ class Listen(Command):
 
     @staticmethod
     def read_all(socket: s) -> bytes:
-        # all_bytes = b''
-        # while (buff := socket.recv(1024*1024*1024)) != b'':
-        #    all_bytes += buff
         all_bytes = socket.recv(1024*1024*50)
         return all_bytes
 
@@ -33,7 +30,7 @@ class Listen(Command):
                     break
                 if not command:
                     continue
-                # print('{}: Running command {}'.format(socket.getpeername(), command[0]))
+                # Running Command
                 r = self.__invoker.execute(command[0], command[1:], socket)
                 if r == '':
                     r = ' '

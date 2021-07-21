@@ -50,8 +50,6 @@ class MTelnet:
         except KeyboardInterrupt:
             print('\n\nProgram is terminating due to a keyboard interrupt.')
             self.socket.close()
-        except Exception as e:
-            raise e
 
 
 t = MTelnet()
