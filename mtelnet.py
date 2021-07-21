@@ -42,7 +42,6 @@ class MTelnet:
                 except KeyboardInterrupt as e:
                     raise e
                 except Exception as e:
-                    raise e
                     print('Command <{}> usage error: {}\nHelp:'.format(input_command[0], str(e)))
                     print(self.command_factory.help(input_command[0]))
                 finally:

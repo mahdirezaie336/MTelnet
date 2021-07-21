@@ -13,6 +13,7 @@ class MSocket:
         self.__connected = False
         self.__secured_socket = None
         self.__secured_connected = False
+        self.__host_address = ('', 0)
 
     def send(self, data: bytes, secured=False):
         if not self.__connected:
@@ -21,17 +22,17 @@ class MSocket:
             self.__client_socket.send(data)
         else:
             context = ssl.create_default_context()
-            hostname = self.__client_socket.getpeername()[0]
-            hostname = 'www.google.com'
+            hostname = self.__host_address[0]
             if not self.__secured_connected:
                 print(data.decode())
-                self.__secured_socket = context.wrap_socket(self.__client_socket, server_hostname=hostname)
-            self.__secured_socket.send(data)
+            secured_socket = context.wrap_socket(self.__client_socket, server_hostname=hostname)
+            secured_socket.send(data)
             print('sending finished')
             self.__secured_connected = True
 
     def connect(self, address: tuple[str, int]):
         r = self.__client_socket.connect(address)
+        self.__host_address = address
         self.__connected = True
         return r
 

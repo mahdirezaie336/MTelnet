@@ -4,13 +4,14 @@ from threading import Thread
 from shared_resources import SharedResources
 from invoker import Invoker, CommandNotFoundException
 from socket import socket as s
+import sys
 
 from command.server import *
 
 
 class Listen(Command):
     __invoker = Invoker({'exec': Execute(),
-                         'help': '',
+                         'help': Help(),
                          'upload': Upload()})
 
     @staticmethod
@@ -22,21 +23,24 @@ class Listen(Command):
         return all_bytes
 
     def client_handler(self, socket: s):
+        global data
         while True:
             try:
-                command = Listen.read_all(socket).decode().split(' ')
-                print(command)
+                data = Listen.read_all(socket).decode()
+                command = data.split(' ')
+                # print(command)
                 if len(command) > 0 and command[0] == 'quit':
                     break
                 if not command:
                     continue
-                print('{}: Running command {}'.format(socket.getpeername(), command[0]))
+                # print('{}: Running command {}'.format(socket.getpeername(), command[0]))
                 r = self.__invoker.execute(command[0], command[1:], socket)
                 if r == '':
                     r = ' '
                 socket.send(r.encode())
             except CommandNotFoundException as e:
-                socket.send('Command not found'.encode())
+                print('Server received message:', data, file=sys.stderr)
+                socket.send('Done'.encode())
             except KeyboardInterrupt:
                 break
             except Exception as e:
@@ -45,9 +49,9 @@ class Listen(Command):
 
     def welcome(self, socket: MSocket):
         while True:
-            print('Welcoming Socket: Waiting for clients ...\n')
+            print('Welcoming Socket: Waiting for clients ...\n', file=sys.stderr)
             client_socket, address = socket.accept()
-            print('Welcoming Socket: Client', address, 'accepted.')
+            print('Welcoming Socket: Client', address, 'accepted.', file=sys.stderr)
             t = Thread(name=address, target=self.client_handler, args=(client_socket,))
             t.start()
             SharedResources().get_attribute('server_threads').append(t)
